@@ -23,7 +23,7 @@ export const useFocusWithin = (ref, { mouse = true, keyboard = true } = {}) => {
       mouse && document.removeEventListener("click", onClick);
       keyboard && document.removeEventListener("keyup", onTabPress);
     };
-  }, [ref]);
+  }, [ref, mouse, keyboard]);
 
   return isFocusWithin;
 };
