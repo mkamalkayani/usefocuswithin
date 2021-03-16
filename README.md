@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# usefocuswithin
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React Hook to detect if an element or its descendent element has focus. Similar to css [`:focus-within`](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-within) pseudo-class behaviour.
 
-## Available Scripts
+Currently, only change of focus with mouse 'click' event is processed. If focus is changed with `Tab` or any other means then the `isFocusWithin` will not update.
 
-In the project directory, you can run:
+[Demo](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-within)
 
-### `yarn start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### npm
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+`npm install usefocuswithin`
 
-### `yarn test`
+#### yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`yarn add usefocuswithin`
 
-### `yarn build`
+## Usage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+import React from "react";
+import { usefocuswithin } from "usefocuswithin";
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+function App() {
+  const targetRef = React.useRef(null);
+  const isFocusWithin = usefocuswithin(targetRef);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  return (
+    <div
+      ref={targetRef}
+      style={{ border: `1px solid ${isFocusWithin ? "green" : "red"}` }}
+    >
+      <input></input>
+    </div>
+  );
+}
+```
 
-### `yarn eject`
+## API
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### usefocuswithin(target, options?)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Arguments
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+| Argument | Type                                                 | Required? | Description                                                          |
+| -------- | ---------------------------------------------------- | --------- | -------------------------------------------------------------------- |
+| target   | <code>React.RefObject<T> &#124; T &#124; null</code> | Yes       | A React ref created by `useRef()` or an HTML element                 |
+| options  | [`Object`](#options)                                 | Yes       | Configuration options for the hook. See [`Options`](#options) below. |
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Returns `boolean`
 
-## Learn More
+This hook returns `true` if the element in `ref` or any of its descendent element is focused, otherwise `false`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Options
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Property | Type    | Description                                                |
+| -------- | ------- | ---------------------------------------------------------- |
+| mouse    | boolean | Detects change of focus due to mouse click event.          |
+| keyboard | boolean | Detects change of focus due to `Tab` keypress on keyboard. |
