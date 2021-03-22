@@ -4,7 +4,7 @@ React Hook to detect if an element or its descendent element has focus. Similar 
 
 Currently, only change of focus with mouse 'click' event is processed. If focus is changed with `Tab` or any other means then the `isFocusWithin` will not update.
 
-[Live Demo](https:usefocuswithin.netlify.app)
+[Live Demo](https://usefocuswithin.netlify.app)
 
 [![Edit usefocuswithin](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/xenodochial-wozniak-tmd7s?fontsize=14&hidenavigation=1&theme=dark)
 

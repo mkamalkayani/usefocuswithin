@@ -5,11 +5,13 @@ export const useFocusWithin = (ref, { mouse = true, keyboard = true } = {}) => {
 
   React.useEffect(() => {
     const onClick = () => {
-      setIsFocusWithin(ref.current.contains(document.activeElement));
+      if (ref && ref.current) {
+        setIsFocusWithin(ref.current.contains(document.activeElement));
+      }
     };
 
     const onTabPress = (e) => {
-      if (e.key === "Tab") {
+      if (ref && ref.current && e.key === "Tab") {
         setIsFocusWithin(ref.current.contains(document.activeElement));
       }
     };
